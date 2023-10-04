@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./captcha.js"></script>
+</head>
+
+<body>
+    <button id="login">显示验证码</button>
+    <div id="captcha"></div>
+    <script>
+
+        initCaptcha({
+            captchaElement: 'captcha',
+            captchaKey: 'aaa',
+            onVerify: function (err, data) {
+                console.log(err, data);
+
+                /**
+                 * 第一个参数是err（Error的实例），验证失败才有err对象
+                 * 第二个参数是data对象，验证成功后的相关信息，data数据结构为key-value，如下：
+                 * {
+                 *   validate: 'xxxxx' // 二次验证信息
+                 * }
+                 **/
+                if (err) return console.log(`验证失败`);// 当验证失败时，内部会自动refresh方法，无需手动再调用一次
+
+                // 点击登录按钮后可调用服务端接口，以下为伪代码，仅作示例用
+
+
+                //captchaIns.refresh()刷新验证码（密码错误或者其他）
+            }
+        }, function onerror(err) {
+            //初始化失败
+            console.log(err);
+        })
+        var loginBtn = document.getElementById('login')
+        loginBtn.addEventListener('click', function () {
+            console.log(`展示验证码`);
+            //captchaIns && captchaIns.verify()
+        })
+    </script>
+
+</body>
+
+</html>
